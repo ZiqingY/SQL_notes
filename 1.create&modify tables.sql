@@ -18,7 +18,7 @@ create table if not exists `Students`(
 select * FROM Students;
 describe Students;
 
-# 查看当前服务器的默认字符集
+/*View the default character set of the current server*/
 show global variables like '%character_set%';
 
 insert into Students values(default, 
@@ -31,11 +31,11 @@ insert into Students values(default,
 			    'YANKTDA1997@GMAIL.COM', 
 			    '123456789', 
 			    DEFAULT);
-# 注：要是插入错误，自增列还会保留错误序号
+/* Note: If inserted wrongly, auto-increment column keeps the order*/
 
 
 
-# 再创建三个Table
+/* Creating another three tables*/
 DROP TABLE IF EXISTS `Grade`;
 CREATE TABLE `grade`(
 	`GradeID` 		int(4) primary key auto_increment		comment'grade id',
@@ -62,32 +62,32 @@ CREATE TABLE `Score`(
 SHOW TABLES;
 
 
-#使score表格里面的自增列：从10开始+
+/* Starting the auto-increment column in 'score' from 10 */
 ALTER TABLE `score` auto_increment=10;
 insert into `score` values(default, 1, 1, now(), 98);
 SELECT * from `score`;
 
-#修改表的名称
+/* Changing tables' names */
 alter table `score` rename to `scores`;
 show tables;
 
-#为表格增加cloumns	
+/* Adding columns to tables */	
 alter table `grade` add `nickname` varchar(20) default('grade nicknames');
 select * from grade;
 DESCRIBE `grade`;
 
-# 修改表格中cloumns的属性
+/* Alter columns' attributes of a table */
 alter table `grade` change `nickname` `newnick` varchar(50) default('changed grade nicnames');
 select * from grade;
 describe `grade`;
 
-# 删除columns
+/* Delete tables */
 alter table `grade` drop `newnick`;
 select * from grade;
 
-# 单独为某个表增加primary key constraint,可以为其单独起名字
+/* Creating another three tables */
 ALTER TABLE `scores` add constraint `pk_score` primary key `scores`(`scoreid`);
-describe `scores`; #这里已经是pk了，所以会报错
+describe `scores`; 
 
 
 
