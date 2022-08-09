@@ -39,29 +39,31 @@ create TABLE if not exists adressbook(
 select * from adressbook;
 
 
-# 按关键字查询数据，排序
-SELECT StuId, StuName, Sex, GradeID, Address FROM students 
-WHERE StuName LIKE 'D' or sex like '%l%'
+/* search by key words or conditions, and order results */ 
+SELECT StuId, StunName, Sex, GradeID, Address FROM students 
+WHERE StunName LIKE 'D' or sex like '%l%'
 order by StuId desc; 
 
-SELECT StuId, StuName, Sex, GradeID, Address FROM students 
-WHERE sex<>'ml'
+SELECT StuId, StunName, Sex, GradeID, Address FROM students 
+WHERE sex<>'ml' 			/* <> stands for non */
 order by StuId desc; 
 
 
-# 给列起别名，用as; 不改变原名
-select StuId as '学号', StuName as '学生姓名' from students;
-select S.StuId as '学号', S.StuName as '学生姓名', G.GradeName as '年纪名' from students as S, Grade as G;  # 用于多表查询
+/* select while renaming the data; multi-table inquiry */
+select StuId as 'studentID', StunName as 'StudentsName' from students;
+select S.StuId as 'studentID', 
+S.StunName as 'StudentsName', 
+G.GradeName as 'Name of Grade' from students as S, Grade as G; 
 
 
-# 提取并拼接clomuns，适用于字符串; 数字列可以相加
+/* select and concate data, applied to characters; numeric data can be added */
 select concat(SubjectName,'_',CourseHours) as 'Course and Hours' from subject; 
 select StuId, GradeId, (StuId + GradeId) as 'IDsum' from students;
 
 
-# 聚合函数示例
-select avg(CourseHours) as '给定年级的平均学时', GradeID from subject group by GradeID;
-select MAX(CourseHours) AS '最长学时' from subject;
+/* Examples for aggregate functions */
+select avg(CourseHours) as 'average study range', GradeID from subject group by GradeID;
+select MAX(CourseHours) AS 'longest study range' from subject;
 INSERT INTO `mydatabase`.`scores` VALUES 
 (default, '1', 	'1', now(), 98), 
 (default, '2', 	'1', now(), 99),
@@ -69,33 +71,36 @@ INSERT INTO `mydatabase`.`scores` VALUES
 (default, '4', 	'1', now(), 90),
 (default, '5', 	'1', now(), 100
 );
-select max(score) as 最高分, min(score) as 最低分, avg(score) as 平均分 from scores 
-where datediff(now(), ExamDate)=0; 				# 求在某天参加考试的最高分对低分平均分
+/* solve for highest, lowest, agerage exam marks for today*/
+select max(score) as highest, min(score) as lowest, avg(score) as average from scores 
+where datediff(now(), ExamDate)=0;
 
 
-# 时间函数
+/* Time functions */
 select concat(curDate(), ' ', curTime());
 select now();
-select concat('今年是2021年的第', week(now()), '个操蛋的周');
+select concat('This week is the ', week(now()), 'th week of 2022');
 select datediff(now(), '1972-11-23');
 select timestampdiff(hour, '1972-11-23', now());
-select adddate('2021-3-31', 12), date_add('2021-3-31', interval '-100' day);
+select adddate('2021-3-31', 100), date_add('2021-3-31', interval '+100' day);
 
 
-# 数学函数
-select ceil(1.2) as '上取整';
+/* Maths functions */
 select ceil(-1.2);
-select floor(1.9) as '下取整';
-select (round(rand() * 1000) % 11 + 5) as '5到15之间的随机数';
+select ceil(1.2) as 'round up';
+select floor(1.9) as 'round down';
+select (round(rand() * 1000) % 11 + 5) as 'a random number between 5 and 15';
 
 
-# 在临时表里面演示字符串修改
-select insert ('zac prays everyday', 1, 3, 'Donald J Trump'); 
-select (upper('zac'));
-SELECT str_to_date(substring('510333199503034444', 7, 8), '%Y%m%d'); 	#截取年月日，组成日期
+/* Modifying characters in temporary tables */
+select insert ('Ziqing reads books everyday', 1, 6, 'Ziqing Yan'); 
+select (upper('zac')) as name_in_capital;
+/* extract date and year: 7th letter with 8-length to compose into proper form */
+SELECT str_to_date(substring('510333199503034444', 7, 8), '%Y%m%d') as date;
 
 
-# 查询与DJT Email相同的同学信息：
-SELECT Email FROM students WHERE StuName='DTJ'; 						# 代入下面
+/* Subquery: Inquire data from students having same email */
+SELECT Email FROM students WHERE StunName='Will';
+/* SQL will first excute subquery, then outterquery; in means multiple results，= means single result */
 SELECT * FROM students 
-WHERE Email = (SELECT Email FROM students WHERE StuName='DTJ'); 		# 会先执行子查询，再执行外面的查询；子查询前面用in表示多个结果，=表示唯一结果
+WHERE Email = (SELECT Email FROM students WHERE StunName='Will');
