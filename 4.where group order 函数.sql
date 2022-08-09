@@ -11,31 +11,30 @@ UPDATE grade set GradeName='Postgraduate_Year3' where GradeID=7;
 
 INSERT INTO `mydatabase`.`grade` VALUES
 	(default, 'Undergraduate_Year1'),
-    (default, 'Undergraduate_Year2'),
-    (default, 'Undergraduate_Year3'),
-    (default, 'Undergraduate_Year4'),
-    (default, 'Postgraduate_Year1'),
-    (default, 'Postgraduate_Year2'),
-    (default, 'Postgraduate_Year3'
-    );
+    	(default, 'Undergraduate_Year2'),
+   	(default, 'Undergraduate_Year3'),
+    	(default, 'Undergraduate_Year4'),
+    	(default, 'Postgraduate_Year1'),
+    	(default, 'Postgraduate_Year2'),
+    	(default, 'Postgraduate_Year3');
 select * from grade;
 
 INSERT INTO `mydatabase`.`subject` VALUES
-	(default, '美国宪法','36',1),
-    (default, '美国秩序的根基','45',1),
-    (default, '宪法第二修正案','28',2),
-    (default, '赤裸的共产党人','180',1),
-    (default, '撒切尔夫人传','180',2),
-    (default, '通往奴役之路','180',3),
-    (default, '哈耶克传','36',1),
-    (default, '美丽新世界','36',2),
-    (default, '圣经','36',3);
+	(default, 'Systematic Theology','36',1),
+    	(default, 'Church History','45',1),
+    	(default, 'Biblical hermeneutics','28',2),
+    	(default, 'Biblical studies','180',1),
+    	(default, 'Biblical theology','180',2),
+    	(default, 'Dogmatic theology','180',3),
+    	(default, 'Historical theology','36',1),
+    	(default, 'Natural theology','36',2),
+    	(default, 'Philosophical theology','36',3);
 select * from subject;
 
 
-# 提取数据用来创建新的表格
+/* extract data and use it to create a new table */
 create TABLE if not exists adressbook(
-	select StuName as 'Name', Address as 'living address' FROM students
+	select StunName as 'Name', Address as 'living address' FROM students
 );
 select * from adressbook;
 
