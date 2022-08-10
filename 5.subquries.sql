@@ -1,8 +1,8 @@
 use mydatabase;
 
 /* subquery simple example */ 
-SELECT * FROM StuInfo
-WHERE LoginPwd = (SELECT LoginPwd from StuInfo where StunName='Katie');
+SELECT * FROM students
+WHERE LoginPwd = (SELECT LoginPwd from students where StunName='Katie');
 
 SELECT * FROM subject;
 select * from scores;
@@ -10,12 +10,12 @@ select * from scores;
 
 /* Limit syntax */
 select * from students limit 3;
-select * from students order by GradeID desc limit 3;  /* 3 highest grades */
+select * from students order by GradeID desc limit 3;  /* 3 highest year students */
 
 
-# 例1：查询参加美国宪法考试的学生信息
+/* Example 1; inquire info of students who took systematic theology exam */
 # 1. 在subject表中查询美国宪法这门课的SubjectId
-select SubjectId from `subject` where SubjectName='美国宪法';
+select SubjectId from `subject` where SubjectName='systematic theology';
 # 2. 在scores表中查询出美国宪法SubjectId对应的StuId
 select StuId from Scores where SubjectId=(select SubjectId from `subject` where SubjectName='美国宪法');
 # 3. 根据StudId查询出对应的所有学生信息
