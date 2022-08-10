@@ -1,15 +1,16 @@
 use mydatabase;
-# 子查询
-# SELECT * FROM StuInfo
-# WHERE LoginPwd = (SELECT LoginPwd from StuInfo where StuName='Trump');
+
+/* subquery simple example */ 
+SELECT * FROM StuInfo
+WHERE LoginPwd = (SELECT LoginPwd from StuInfo where StunName='Katie');
 
 SELECT * FROM subject;
 select * from scores;
 
 
-# Limit，可用于选取前几名
+/* Limit syntax */
 select * from students limit 3;
-select * from students order by GradeID desc limit 3;  # 选取最高年级的三名学生
+select * from students order by GradeID desc limit 3;  /* 3 highest grades */
 
 
 # 例1：查询参加美国宪法考试的学生信息
