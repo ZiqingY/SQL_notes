@@ -27,13 +27,14 @@ SELECT * FROM students WHERE exists (
 SELECT StuID FROM scores WHERE StuId=Students.StuId and SubjectId=(SELECT SubjectId FROM `subject` WHERE SubjectName='美国宪法'));
 
 
-/* Example 2 inquire info of students who took systematic theology exam most recently */
-# 1. 从subject表中查询美国宪法这一门课的Id
-SELECT SubjectId FROM `subject` WHERE SubjectName='美国宪法';
-# 2. 根据课程ID从Score中查询对应学生ID
-SELECT StuID FROM `scores` WHERE SubjectId = (SELECT SubjectId FROM `subject` WHERE SubjectName='美国宪法') ORDER BY ExamDate DESC LIMIT 1;
-# 3. 根据学生ID查询对应学生信息
-SELECT * FROM `students` WHERE StuID IN 
+/* Example 2 inquire info of the student who took systematic theology exam most recently */
+/* Step 1: select subject ID by sbuject name in subject table */
+SELECT SubjectId FROM `subject` WHERE SubjectName='systematic theology';
+/* Step 2: select student ID by subject ID in scores table, with the closest exam date */
+SELECT StuID FROM `scores` WHERE SubjectId = (SELECT SubjectId FROM `subject` WHERE SubjectName='systematic theology') ORDER BY ExamDate DESC LIMIT 1;
+/* Step 3: select row of student info by student ID in student table*/
+SELECT * FROM `students` WHERE StuID = 
 (SELECT StuID FROM `scores` WHERE SubjectId = 
-	(SELECT SubjectId FROM `subject` WHERE SubjectName='美国宪法' ORDER BY ExamDate DESC LIMIT 1)
-);														# 注意: WHERE xxx=的地方若是跟多个row, 则不用=, 用IN
+	(SELECT SubjectId FROM `subject` WHERE SubjectName='systematic theology' ) ORDER BY ExamDate DESC LIMIT 1
+);	
+/* Note: if 'WHERE xxx=' follows mutiple rows then use 'IN' ratehr than =
