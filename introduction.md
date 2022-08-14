@@ -1,0 +1,1 @@
+/* These are notes of my study on MySQL from online resources */
