@@ -1,6 +1,6 @@
 /*    inner join...on
- 			inner join 得到两个表行数相乘的行数
- 			inner join on 得到SUM(表1各行乘以匹配行数量)的行数
+ 			INNER JOIN generates row number = multiplication of numbers of rows in 2 tables
+ 			INNER JOIN ON generates row number = SUM(表1各行乘以匹配行数)
 
  left join...on / left outer join on
 
@@ -10,7 +10,7 @@
 		 	SELECT column1, column2,... FROM table1
 		 	UNION
  		 	SELECT column_1, column_2,... FROM table2
- 			注意:两张表取出的columns数量要相同; UNION 会自动合并相同数据, UNION ALL不会, 所以更有效率 */
+ 			note:两张表取出的columns数量要相同; UNION 会自动合并相同数据, UNION ALL不会, 所以更有效率 */
 
 
 /* inner join例子及其collary */
