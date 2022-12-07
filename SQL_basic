@@ -1,0 +1,39 @@
+/* An example of INNER JOIN: short-name tables */
+SELECT order_no, order_value, name
+From sale S
+INNER jOIN COMPANY C ON S.company_no = C.company_no
+ORDER BY name
+
+
+/* Multiple INNER JOIN: 3 tables with 2 references */
+select * from sale;
+select * from dept;
+select * from salesperson;
+
+SELECT manager, SP.emp_no, fname, lname, D.dept_no, order_value,
+
+  description
+
+FROM   sale S
+
+       INNER JOIN salesperson SP ON S.emp_no = SP.emp_no
+
+       INNER JOIN dept D         ON D.dept_no = SP.dept_no
+	   
+
+/* COALESCE() returns first NULL value in the list */
+SELECT COALESCE (manager,'Has no manager') AS Manager, lname
+
+FROM   dept D RIGHT JOIN salesperson SP
+
+                      ON SP.dept_no = D.dept_no
+					  
+
+/* summarised queries and naming the result columns */
+SELECT SUM(sales_target) Total,
+
+       AVG(sales_target) Average,
+
+       COUNT(*) 'No of sales people'
+
+FROM   salesperson
