@@ -1,1 +1,6 @@
-*/ An example of INNER JOIN: short-name tables */
+/* An example of INNER JOIN: short-name tables */
+
+SELECT order_no, order_value, name
+From sale S
+INNER jOIN COMPANY C ON S.company_no = C.company_no
+ORDER BY name
